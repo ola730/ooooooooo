@@ -1,0 +1,44 @@
+﻿@model List<NTierTodoApp.Models.TaskItem>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>إدارة المهام – n-tier</title>
+</head>
+<body>
+    <h1>قائمة المهام (n-tier)</h1>
+    <ul>
+        @foreach (var task in Model)
+        {
+            <li>
+                @if(task.IsComplete)
+                {
+                    <s>@task.Title</s>
+                }
+                else
+                {
+                    @task.Title
+                    <form method="post" asp-action="CompleteTask" style="display:inline;">
+                        <input type="hidden" name="id" value="@task.Id" />
+                        <button type="submit">اكتملت</button>
+                    </form>
+                }
+
+                <!-- TODO: إضافة زر حذف المهمة -->
+            </li>
+          
+    <form method="post" asp-action="DeleteTask" style="display:inline; margin-left:10px;">
+    <input type="hidden" name="id" value="@task.Id" />
+    <button type="submit">حذف</button>
+</form>
+}
+    </ul>
+
+    <form method="post" asp-action="AddTask">
+        <input type="text" name="title" placeholder="أضف مهمة جديدة" />
+        <button type="submit">إضافة</button>
+    </form>
+   
+</body>
+</html>
